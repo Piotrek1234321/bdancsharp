@@ -1,0 +1,31 @@
+using System;
+
+class testRandom
+{
+    static void Main()
+    {
+        typeRandom();
+    }
+
+    static void typeRandom()
+    {
+        Random rnd = new Random(); // Utworzenie obiektu rnd z ziarnem z czasu systemowego
+        int randomNum = rnd.Next(); // Przypisanie zmiennej int losowej liczby
+
+        Console.WriteLine("Losowa liczba z ziarnem z czasu systemowego: " + randomNum);
+
+        rnd = new Random(2137); // Obiekt rnd z zadanym ziarnem
+        randomNum = rnd.Next(); // Losowa liczba na podstawie zadanego ziarna
+
+        Console.WriteLine("Losowa liczba z zadanym ziarnem 2137: " + randomNum);
+
+        rnd = new Random();
+        int randomNum2 = rnd.Next(13); // Losowa liczba nieujemna mniejsza niż zadana
+
+        Console.WriteLine("Losowa liczba nieujemna mniejsza niż 13: " + randomNum2);
+
+        int randomNum3 = rnd.Next(21, 37); // Losowa liczba z zakresu
+
+        Console.WriteLine("Losowa liczba z zakresu od 21 do 37: " + randomNum3);
+    }
+}
