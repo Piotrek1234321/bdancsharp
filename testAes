@@ -1,7 +1,6 @@
-using System;
-using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+
 
 
 class testAes{
@@ -12,6 +11,8 @@ class testAes{
         invalidCipher();
         Console.WriteLine("Invalid Key");
         invalidKey();
+        Console.WriteLine("SHA 256");
+        hash("C:\\Users\\piotr\\OneDrive\\Pulpit\\POLITECHNIKA\\BDAN\\csharp\\bdanProj\\Piotr_Stępniak.txt");
    }
    static void testSuccessfull(){
               string original = read("C:\\Users\\piotr\\OneDrive\\Pulpit\\POLITECHNIKA\\BDAN\\csharp\\bdanProj\\Piotr_Stępniak.txt");
@@ -49,7 +50,7 @@ class testAes{
    }
    static void invalidKey(){
         string original = read("C:\\Users\\piotr\\OneDrive\\Pulpit\\POLITECHNIKA\\BDAN\\csharp\\bdanProj\\Piotr_Stępniak.txt");
-        
+        try{
         using(Aes aes = Aes.Create()){
             aes.BlockSize = 128;
             aes.KeySize = 128;
@@ -60,6 +61,11 @@ class testAes{
                 Console.WriteLine(b);
             }
             Console.WriteLine(decrypted);
+        }
+        }
+        catch {
+            Console.WriteLine("Can't decipher with improper key!");
+            return;
         }
    }
    static string read(string path)
@@ -147,5 +153,14 @@ class testAes{
             }
 
             return plaintext;
+        }
+        static void hash(string path){
+            string toHash = read(path);
+            byte[] toHashArray = Encoding.UTF8.GetBytes(toHash);
+            HashAlgorithm sha = SHA256.Create();
+            byte[] result = sha.ComputeHash(toHashArray);
+            foreach(byte b in result){
+                Console.WriteLine(b);
+            }
         }
     }
